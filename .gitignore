@@ -1,0 +1,10 @@
+*
+
+!*.*
+
+!*/
+
+*.o
+
+build-base64-Desktop-Debug
+CMakeLists.txt.user
