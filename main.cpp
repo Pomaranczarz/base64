@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <array>
 #include <cmath>
 #include <iostream>
@@ -97,8 +98,10 @@ private:
 	[[nodiscard]] static std::vector<uint8_t> stringToCodes(std::string s)
 	{
 		std::vector<uint8_t> result;
-		for (auto c : s)
-			result.push_back(getCodeFromBase64Character(c));
+
+		std::transform(s.begin(), s.end(),
+				   std::back_inserter(result),
+				   [](auto c) { return getCodeFromBase64Character(c); });
 
 		return result;
 	}
@@ -109,7 +112,7 @@ private:
 		std::vector<uint8_t> bits;
 		for (auto code : codes) {
 			auto codeBits = toBits(code);
-			for (size_t i = 2; i < codeBits.size(); i++)	    // take only 6 bits as the remaining 2 are there to fill to 8 bits and disturb calculations
+			for (size_t i = 2; i < codeBits.size(); i++)	    // take only 6 bits as the remaining 2 are there only to fill to 8 bits
 				bits.push_back(codeBits[i]);
 		}
 
