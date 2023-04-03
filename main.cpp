@@ -61,6 +61,7 @@ private:
 	[[nodiscard]] static std::vector<uint8_t> toBits(T value) noexcept
 	{
 		std::vector<uint8_t> bits;
+
 		const int shift = 8 * sizeof(T) - 1;
 		const unsigned mask = 1 << shift;
 
@@ -91,7 +92,7 @@ private:
 			if (c == Codes[i])
 				return i;
 
-		return -1;
+		throw std::runtime_error("Invalid base64 character");
 	}
 
 	/// Convert base64 encoded string into string of characters' codes
@@ -110,6 +111,7 @@ private:
 	[[nodiscard]] static std::vector<uint8_t> codesToBits(std::vector<uint8_t> codes)
 	{
 		std::vector<uint8_t> bits;
+
 		for (auto code : codes) {
 			auto codeBits = toBits(code);
 			for (size_t i = 2; i < codeBits.size(); i++)	    // take only 6 bits as the remaining 2 are there only to fill to 8 bits
