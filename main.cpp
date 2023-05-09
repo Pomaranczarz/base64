@@ -32,7 +32,7 @@ public:
 	}
 
 	/// Decode base64 encoded string
-	static std::string decode(const std::string& s)
+	[[nodiscard]] static std::string decode(const std::string& s)
 	{
 		auto charactersCodes = stringToCodes(s);
 		auto codesBits = codesToBits(charactersCodes);
